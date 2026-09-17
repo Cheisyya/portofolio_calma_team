@@ -1,7 +1,72 @@
+import { useState } from "react";
 import useReveal from "../hooks/useReveal.js";
 import { projects } from "../data.js";
 
-function ProjectRow({ project, i }) {
+function ProjectGallery({ photos, monogram, title }) {
+  const [index, setIndex] = useState(0);
+  const hasGallery = photos && photos.length > 1;
+
+  function prev() {
+    setIndex((i) => (i - 1 + photos.length) % photos.length);
+  }
+
+  function next() {
+    setIndex((i) => (i + 1) % photos.length);
+  }
+
+  return (
+    <>
+      <div className="project-blob">
+        {photos && photos.length > 0 ? (
+          photos.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${title} — tampilan ${i + 1}`}
+              className={"project-photo" + (i === index ? " is-active" : "")}
+            />
+          ))
+        ) : (
+          <span>{monogram}</span>
+        )}
+      </div>
+
+      {hasGallery && (
+        <>
+          <button
+            type="button"
+            className="gallery-arrow gallery-arrow--prev"
+            aria-label="Foto sebelumnya"
+            onClick={prev}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            className="gallery-arrow gallery-arrow--next"
+            aria-label="Foto berikutnya"
+            onClick={next}
+          >
+            →
+          </button>
+          <div className="gallery-dots">
+            {photos.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                className={i === index ? "is-active" : ""}
+                aria-label={`Tampilan ${i + 1}`}
+                onClick={() => setIndex(i)}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+function ProjectRow({ project }) {
   const ref = useReveal();
   return (
     <article
@@ -11,13 +76,7 @@ function ProjectRow({ project, i }) {
     >
       <div className="project-row-media">
         <span className="project-row-index" aria-hidden="true">{project.index}</span>
-        <div className="project-blob">
-          {project.photo ? (
-            <img className="avatar-img" src={project.photo} alt={project.title} />
-          ) : (
-            <span>{project.monogram}</span>
-          )}
-        </div>
+        <ProjectGallery photos={project.photos} monogram={project.monogram} title={project.title} />
         <div className="project-ring" aria-hidden="true"></div>
       </div>
 
@@ -47,8 +106,8 @@ export default function Projects() {
       </div>
 
       <div className="project-list">
-        {projects.map((project, i) => (
-          <ProjectRow key={project.index} project={project} i={i} />
+        {projects.map((project) => (
+          <ProjectRow key={project.index} project={project} />
         ))}
       </div>
     </section>

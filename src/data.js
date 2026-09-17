@@ -2,7 +2,9 @@ import adityaPhoto from "./assets/team/aditya.jpg";
 import khadafiPhoto from "./assets/team/khadafi.jpg";
 import cheisyaPhoto from "./assets/team/cheisya.jpg";
 import baraHidroPhoto from "./assets/projects/bara-hidro.jpg";
+import baraHidroPhoto2 from "./assets/projects/bara-hidro-2.jpg";
 import voltspacePhoto from "./assets/projects/voltspace.jpg";
+import voltspacePhoto2 from "./assets/projects/voltspace-2.jpg";
 
 export const members = [
   {
@@ -55,7 +57,7 @@ export const projects = [
   {
     index: "01",
     monogram: "SI",
-    photo: baraHidroPhoto,
+    photos: [baraHidroPhoto, baraHidroPhoto2],
     title: "Barahidro – Sistem Monitoring Hidroponik Berbasis IoT",
     desc: "Mengembangkan sistem berbasis IoT untuk memantau kondisi air dan nutrisi pada tanaman hidroponik.",
     variant: "a",
@@ -63,7 +65,7 @@ export const projects = [
   {
     index: "02",
     monogram: "DE",
-    photo: voltspacePhoto,
+    photos: [voltspacePhoto, voltspacePhoto2],
     title: "VoltSpace – Sistem Monitoring Energi Berbasis IoT",
     desc: "Mengembangkan sistem berbasis IoT dan web untuk memantau konsumsi listrik serta mengontrol perangkat secara jarak jauh.",
     variant: "b",
